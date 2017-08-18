@@ -17,6 +17,12 @@ static const TCHAR  *g_tcRoot[FATFS_MEMDEV_NUM] =
 
 int hs_sd_timTaining(void);
 
+/**
+ * [hs_fatfs_mount description]
+ * @method hs_fatfs_mount
+ * @param  msg            [description]
+ * @param  parg           [description]
+ */
 void hs_fatfs_mount(uint16_t msg, void *parg)
 {
   (void)msg;
@@ -45,7 +51,7 @@ void hs_fatfs_unmount(uint16_t msg, void *parg)
   hs_fatfs_memdev_t memDev = (hs_fatfs_memdev_t)parg;
 
   if((memDev >= FATFS_MEMDEV_NUM) || (g_stFsInfo[memDev].u8IsMount == 0))
-    return ;  
+    return ;
 
   //hs_cfg_sysReqPeripArg(HS_CFG_EVENT_MEMDEV_OUT, parg);
   f_mount(NULL, g_tcRoot[memDev], 0);
@@ -72,5 +78,3 @@ void hs_fatfs_init(void)
   g_stFsInfo[FATFS_MEMDEV_UDISK].u8IsMount = 0;
   g_stFsInfo[FATFS_MEMDEV_UDISK].pstFs = (FATFS *)hs_malloc(sizeof(FATFS), __MT_DMA);
 }
-
-
